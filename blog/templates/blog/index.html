@@ -1,0 +1,49 @@
+{%extends 'base.html'%} 
+
+{% block content %}
+
+<h1 class="text-center">  
+   <div >
+   ChatBot
+   </div>
+</h1>
+<div>
+   <div id="chatbot">
+      <p class="bottext"><span>Hi there</span> </p>
+
+
+   </div>
+   <div id="userinput">
+      <input type="text" id="textinput" name="usermessage" placeholder="type you're message..."/>  
+      <input type="submit" value="Send" id="buttoninput"/>
+   </div>
+
+
+</div>
+<script> 
+   function getUserResponse(){
+
+var usertext = $('#textinput').val();
+var userhtml = "<p class='usertext'> User : <span>"+usertext+"</span></p>";
+$('#textinput').val("");
+$('#chatbot').append(userhtml);
+
+$.get('/blog/getresp', {usermessage:usertext}).done(function(data){
+
+   var returnedmessage = "<p class='bottext'>ChatBot : <span> "+data+"</span></p>";
+   $('#chatbot').append(returnedmessage);
+
+})
+
+   }
+$('#buttoninput').click(function(){
+
+   getUserResponse();
+})
+
+
+</script>
+
+
+
+{% endblock %}
